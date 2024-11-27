@@ -1,50 +1,32 @@
 import { useState } from 'react'
 
-function App() {
-  const [list, setList] = useState([]);
-  const [item, setItem] = useState("");
+const App = () => {
 
-  const AddToList = () => {
-      list.push(item);
-      setList([...list]);
 
-  }
-
-  const RemoveItem = (index) => {
-      list.splice(index, 1);
-      setList([...list]);
-  }
+  let [FormObj, SetFormObj] = useState({fName:"", lName:"Biswas", city:"", gender:"" })
 
 
   return (
-    <div>
-        <p>{item.length}</p>
-        <table>
-            <tbody>
-              {
-                list.length != 0?(
+      <div className='container'>
 
-                  list.map((element, index) => {
-                      return(
-                          <tr>
-                              <td>{element}</td>
-                              <td><button onClick={() => {
-                                  RemoveItem(index);
-                              }}>
-                                Remove</button></td>
-                          </tr>
+          <form>
+            <input value={FormObj.fName} placeholder='First Name'/><br/>
+            <input value={FormObj.lName} placeholder='Last Name'/><br/>
+            <select value={FormObj.city}>
+                <option value="">Choose City</option>
+                <option value="Dhaka">Dhaka</option>
+                <option value="Rangpur">Rangpur</option>
+            </select>
+            <br/>
+            <input checked={FormObj.gender === 'Male'} type='radio' name='gander'/>Male
+            <input checked={FormObj.gender === 'Female'} type='radio' name='gander'/>Female 
+            <br/>
+            <button type='submit'>Submit</button>
+          </form>
 
-                      )
+      </div>
+  );
+};
 
-                  })
-                ):(<tr></tr>)
-              }
-            </tbody>
-        </table>
-        <input onChange={(e)=>setItem(e.target.value)} placeholder='Item'/>
-        <button onClick={AddToList}>Add</button>
-    </div>
-  )
-}
 
 export default App

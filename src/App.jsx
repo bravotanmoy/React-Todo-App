@@ -1,34 +1,49 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [list, setList] = useState([]);
+  const [item, setItem] = useState("");
+
+  const AddToList = () => {
+      list.push(item);
+      setList([...list]);
+
+  }
+
+  const RemoveItem = (index) => {
+      list.splice(index, 1);
+      setList([...list]);
+  }
+
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div>
+        <p>{item.length}</p>
+        <table>
+            <tbody>
+              {
+                list.length != 0?(
+
+                  list.map((element, index) => {
+                      return(
+                          <tr>
+                              <td>{element}</td>
+                              <td><button onClick={() => {
+                                  RemoveItem(index);
+                              }}>
+                                Remove</button></td>
+                          </tr>
+
+                      )
+
+                  })
+                ):(<tr></tr>)
+              }
+            </tbody>
+        </table>
+        <input onChange={(e)=>setItem(e.target.value)} placeholder='Item'/>
+        <button onClick={AddToList}>Add</button>
+    </div>
   )
 }
 
